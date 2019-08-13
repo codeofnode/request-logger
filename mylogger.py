@@ -16,10 +16,11 @@ class LoggerRequestClass(BaseHTTPServer.BaseHTTPRequestHandler, object):
        value =  super(LoggerRequestClass, self).parse_request()
        return value
 
-BaseHTTPServer.BaseHTTPRequestHandler = LoggerRequestClass
+#BaseHTTPServer.BaseHTTPRequestHandler = LoggerRequestClass
 
 def req_extractor(*args, **kargs):
     global current_class
+    #import inspect; return {'tid': inspect.currentframe().f_back.f_back.f_back.f_locals['self'].headers['X-App-Tid']}
     if current_class and 'X-App-Tid' in current_class.headers:
         return {'tid': current_class.headers['X-App-Tid']}
     return {'tid': 'Nil'}
